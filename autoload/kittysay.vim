@@ -82,6 +82,16 @@ function! s:data.send_command() dict
     echom l:sendcmd
     call system(l:sendcmd)
 endfunction
+function! s:data.send_cancel() dict
+    let l:cancelcmdfmt = "kitty @ --to=unix:@%s_%s send-text \<C-c>"
+    let l:cancelcmd = printf(l:cancelcmdfmt,self.ses_name,self.win_name)
+    call system(l:cancelcmd)
+endfunction
+
+function! kittysay#kittycan()
+    call s:data.init()
+    call s:data.send_cancel()
+endfunction
 
 function! kittysay#kittywin()
     call s:data.init()
